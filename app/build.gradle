@@ -1,9 +1,11 @@
 plugins {
+    id 'idea'
+    id 'java'
     id 'application'
     id 'checkstyle'
     id 'com.adarshr.test-logger' version '3.0.0'
     id 'com.github.ben-manes.versions' version '0.39.0'
-    id 'io.ebean' version '12.12.1'
+    id 'io.ebean' version '13.6.5'
     id 'jacoco'
 }
 
@@ -43,7 +45,6 @@ dependencies {
     implementation 'io.ebean:ebean-annotation:7.3'
     annotationProcessor 'io.ebean:querybean-generator:12.12.1'
 
-    // NOTE: ebean-ddl-generator требует старые зависимости, которых нет в java 9 и выше
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.5'
     implementation 'javax.activation:activation:1.1.1'
 
