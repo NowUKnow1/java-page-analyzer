@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="UTF-8"/>
+    <title>Анализатор страниц</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous">
+</head>
+<body class="d-flex flex-column min-vh-100 flex-grow-1" >
+<nav class="main-bar">
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbarNav">
+        <a class="navbar-brand" href="/">Анализатор страниц</a>
+        <div class="collapse navbar-collapse">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Главная</a>
+                <a class="nav-link" href="/urls">Сайты</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div
+        th:if="${session.flash}"
+        th:class="'rounded-0 m-0 alert alert-dismissible fade show alert-' + ${ctx.consumeSessionAttribute('flash-type')}"
+        role="alert"
+>
+    <p class="m-0" th:text="${ctx.consumeSessionAttribute('flash')}"></p>
+</div>
+<section layout:fragment="content"></section>
+
+<footer class="footer border-top py-3 mt-5 bg-light text-center">
+    <div class="container-xl">
+        <div>
+            Created by
+            <a href="https://github.com/NurshatKalimullin/">Nurshat Kalimullin</a>
+        </div>
+    </div>
+</footer>
+<section layout:fragment="footer-content"></section>
+</body>
+</html>
