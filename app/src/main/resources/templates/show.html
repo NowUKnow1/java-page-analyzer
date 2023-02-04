@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/application.html}">
+<head>
+    <title>Анализатор страниц</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-lg mt-5">
+        <h1>Сайты</h1>
+        <table class="table table-bordered table-hover mt-3">
+            <tbody>
+            <thead>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Последняя проверка</th>
+            <th>Код ответа</th>
+            </thead>
+            <tbody>
+            <tr  th:each="url : ${urls}" th:object="${url}">
+                <td th:text="*{id}"></td>
+                <td>
+                    <a th:text="*{name}" th:href="@{/urls/{id}(id=*{id})}"></a>
+                </td>
+                <td th:text="*{!checks.isEmpty} ? *{#temporals.format(checks.get(0).getCreatedAt(), 'dd/MM/yyyy HH:mm')} : ''"></td>
+                <td th:text="*{!checks.isEmpty} ? *{checks.get(0).getStatusCode()} : ''"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-5">
+                <li th:class="page-item">
+                    <a class="page-link" th:href="@{/urls(page=${page - 1},term=${term})}">Previous</a>
+                </li>
+                <li th:class="page-item">
+                    <a class="page-link" th:href="@{/urls(page=${page + 1},)}">Next</a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</section>
+</body>
+</html>
