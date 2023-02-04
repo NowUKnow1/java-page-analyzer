@@ -22,6 +22,9 @@ import org.jsoup.nodes.Document;
 
 public final class UrlController {
 
+    private final static int MAXROWS = 1000;
+    private final static int ROWSPERPAGE = 10;
+
 
     public static String normalizeUrl(String urlString) throws MalformedURLException {
         URL url = new URL(urlString);
@@ -45,7 +48,7 @@ public final class UrlController {
 
         PagedList<UrlCheck> pagedChecks = new QUrlCheck()
                 .setFirstRow(0)
-                .setMaxRows(1000)
+                .setMaxRows(MAXROWS)
                 .url.name.equalTo(url.getName())
                 .orderBy()
                 .createdAt.desc()
@@ -143,7 +146,7 @@ public final class UrlController {
     public static Handler listUrls = ctx -> {
 
         int page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
-        int rowsPerPage = 10;
+        int rowsPerPage = ROWSPERPAGE;
         int offset = (page - 1) * rowsPerPage;
 
         QUrl url = QUrl.alias();

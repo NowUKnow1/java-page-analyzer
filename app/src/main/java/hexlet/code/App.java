@@ -53,7 +53,7 @@ public class App {
         });
     }
 
-    public static Javalin getApp () {
+    public static Javalin getApp() {
         Javalin app = Javalin.create(config -> {
             config.enableDevLogging();
             JavalinThymeleaf.configure(getTemplateEngine());
