@@ -20,10 +20,10 @@ import kong.unirest.UnirestException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public final class UrlController {
+public class UrlController {
 
-    private final static int MAXROWS = 1000;
-    private final static int ROWSPERPAGE = 10;
+    private static final int MAXROWS = 1000;
+    private static final int ROWSPERPAGE = 10;
 
 
     public static String normalizeUrl(String urlString) throws MalformedURLException {
