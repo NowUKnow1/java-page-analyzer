@@ -1,37 +1,37 @@
 .DEFAULT_GOAL := build-run
 
 setup:
-	make -C app setup
+	gradle wrapper --gradle-version 7.4
 
 clean:
-	make -C app clean
+	./gradlew clean
 
 build:
-	make -C app build
+	./gradlew clean build
 
 start:
-	make -C app start
+	APP_ENV=development ./gradlew run
 
 install:
-	make -C app install
+	./gradlew clean install
 
 start-dist:
-	make -C app start-dist
+	APP_ENV=production ./build/install/app/bin/app
 
 generate-migrations:
-	make -C app generate-migrations
+	./gradlew generateMigrations
 
 lint:
-	make -C app lint
+	./gradlew checkstyleMain checkstyleTest
 
 test:
-	make -C app test
+	./gradlew test
 
 report:
-	make -C app report
+	./gradlew jacocoTestReport
 
-update-deps:
-	make -C app update-deps
+check-updates:
+	./gradlew dependencyUpdates
 
 
 build-run: build run
