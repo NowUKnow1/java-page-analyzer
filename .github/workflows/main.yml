@@ -1,4 +1,5 @@
 name: Java CI
+
 on:
   - push
   - pull_request
@@ -6,22 +7,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
+    steps:
+      - uses: actions/checkout@v2
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'temurin'
-
-
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: app
-
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
@@ -30,3 +28,4 @@ jobs:
         with:
           coverageCommand: make report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          build-root-directory: app
