@@ -20,10 +20,7 @@ import kong.unirest.UnirestException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public class UrlController {
-
-    private static final int MAXROWS = 1000;
-    private static final int ROWSPERPAGE = 10;
+public final class UrlController {
 
 
     public static String normalizeUrl(String urlString) throws MalformedURLException {
@@ -48,7 +45,7 @@ public class UrlController {
 
         PagedList<UrlCheck> pagedChecks = new QUrlCheck()
                 .setFirstRow(0)
-                .setMaxRows(MAXROWS)
+                .setMaxRows(1000)
                 .url.name.equalTo(url.getName())
                 .orderBy()
                 .createdAt.desc()
@@ -146,7 +143,7 @@ public class UrlController {
     public static Handler listUrls = ctx -> {
 
         int page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
-        int rowsPerPage = ROWSPERPAGE;
+        int rowsPerPage = 10;
         int offset = (page - 1) * rowsPerPage;
 
         QUrl url = QUrl.alias();
