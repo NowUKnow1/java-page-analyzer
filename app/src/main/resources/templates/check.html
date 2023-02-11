@@ -1,61 +1,56 @@
 <!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/application.html}">
 
-<head>
-    <title>Анализатор страниц</title>
-</head>
-<body>
 <section layout:fragment="content">
+    <div class="container-lg mt-5" th:object="${url}">
+        <h1 th:text="'Страница ' + *{getName()}"></h1>
 
-    <div th:object="${url}" class="container-lg mt-5">
-        <h1 th:text="'Сайт ' + *{getName()}"></h1>
         <table class="table table-bordered table-hover mt-3">
             <tbody>
             <tr>
                 <td>ID</td>
-                <td th:text="*{id}"></td>
+                <td th:text="*{getId()}">1</td>
             </tr>
             <tr>
                 <td>Имя</td>
-                <td th:text="*{name}"></td>
+                <td th:text="*{getName()}"></td>
             </tr>
             <tr>
                 <td>Дата создания</td>
-                <td th:text="*{#temporals.format(createdAt, 'dd/MM/yyyy HH:mm')}">/td>
+                <td th:text="*{#temporals.format(getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
             </tr>
             </tbody>
         </table>
 
         <h2 class="mt-5">Проверки</h2>
-        <form method="post" th:action="@{/urls/{id}/checks(id=*{id})}">
-            <button type="submit" class="btn btn-primary">Запустить проверку</button>
+        <form method="post" th:action="@{/urls/{id}/checks(id=*{getId()})}">
+            <button type="submit" class="btn btn-primary">Проверить</button>
         </form>
 
         <table class="table table-bordered table-hover mt-3">
             <thead>
-            <th class="col-1">ID</th>
-            <th class="col-1">Код ответа</th>
-            <th>title</th>
-            <th>h1</th>
-            <th>description</th>
-            <th class="col-2">Дата проверки</th>
+            <tr>
+                <th class="col-1">ID</th>
+                <th class="col-1">Код ответа</th>
+                <th>Название</th>
+                <th>Заголовок</th>
+                <th>Описание</th>
+                <th class="col-2">Дата проверки</th>
+            </tr>
             </thead>
             <tbody>
-            <tr th:each="check: ${checks}" th:object="${check}">
-                <td th:text="*{id}"></td>
-                <td th:text="*{statusCode}"></td>
-                <td th:text="*{#strings.abbreviate(title, 60)}"></td>
-                <td th:text="*{#strings.abbreviate(h1, 60)}"></td>
-                <td th:text="*{#strings.abbreviate(description, 60)}"></td>
-                <td th:text="${#temporals.format(check.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
+            <tr th:each="urlCheck : ${url.getUrlChecks()}" th:object="${urlCheck}">
+                <td th:text="*{getId()}"></td>
+                <td th:text="*{getStatusCode()}"></td>
+                <td th:text="*{getTitle()}"></td>
+                <td th:text="*{getH1()}"></td>
+                <td th:text="*{getDescription()}"></td>
+                <td th:text="*{#temporals.format(getCreatedAt(), 'dd/MM/yy HH:mm')}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-
 </section>
-
-<section layout:fragment="footer-content"></section>
-</body>
 </html>
