@@ -13,12 +13,14 @@ import static io.javalin.apibuilder.ApiBuilder.path;
 import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.post;
 
+
 public class App {
 
     private static int getPort() {
         String port = System.getenv().getOrDefault("PORT", "3000");
         return Integer.valueOf(port);
     }
+
 
     private static TemplateEngine getTemplateEngine() {
         TemplateEngine templateEngine = new TemplateEngine();
@@ -42,10 +44,8 @@ public class App {
                 get(UrlController.listUrls);
                 post(UrlController.createUrl);
                 path("{id}", () -> {
-                    //GET /urls/{id}
                     get(UrlController.displayUrl);
                     path("checks", () -> {
-                        //POST /urls/{id}/checks
                         post(UrlController.checkUrl);
                     });
                 });
@@ -67,9 +67,9 @@ public class App {
 
         return app;
     }
+
     public static void main(String[] args) {
         Javalin app = getApp();
         app.start(getPort());
     }
 }
-
