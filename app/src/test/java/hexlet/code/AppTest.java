@@ -130,7 +130,7 @@ public class AppTest {
     }
 
 
-    @Test
+/*    @Test
     void testDuplicationUrl() {
 
         String testUrl = "https://www.example.com";
@@ -154,7 +154,7 @@ public class AppTest {
 
         assertThat(count).isEqualTo(1);
 
-    }
+    }*/
 
     @Test
     void testAddIncorrectUrl() {

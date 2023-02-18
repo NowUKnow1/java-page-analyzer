@@ -16,8 +16,12 @@ import static io.javalin.apibuilder.ApiBuilder.post;
 
 public class App {
 
+    private static final String DEFAULT_PORT = "3000";
+    private static final String TEST_DB = "development";
+    private static final String PROD_DB = "production";
+
     private static int getPort() {
-        String port = System.getenv().getOrDefault("PORT", "3000");
+        String port = System.getenv().getOrDefault("PORT", DEFAULT_PORT);
         return Integer.valueOf(port);
     }
 
@@ -53,9 +57,20 @@ public class App {
         });
     }
 
+    private static String getMode() {
+        return System.getenv().getOrDefault("APP_ENV", TEST_DB);
+    }
+
+    private static boolean isProduction() {
+        return getMode().equals(PROD_DB);
+    }
+
     public static Javalin getApp() {
         Javalin app = Javalin.create(config -> {
-            config.enableDevLogging();
+            if (!isProduction()) {
+                config.enableDevLogging();
+            }
+            config.enableWebjars();
             JavalinThymeleaf.configure(getTemplateEngine());
         });
 
